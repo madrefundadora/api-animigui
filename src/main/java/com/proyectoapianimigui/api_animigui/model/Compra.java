@@ -1,38 +1,36 @@
 package com.proyectoapianimigui.api_animigui.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-@Entity 
+@Entity
 @Table(name = "compra")
 public class Compra {
 
-    public enum Nombre{
-        CONSULTA, VACUNA, DESPARACITACION, MEDICAMENTO
+    public enum Nombre {
+        CONSULTA,
+        VACUNA,
+        DESPARACITACION,
+        MEDICAMENTO
     }
 
-    public enum Tipo{
-        SERVICIO, PRODUCTO
+    public enum Tipo {
+        SERVICIO,
+        PRODUCTO
     }
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="id_compra")
-    private Long id_compra;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_compra")
+    private Long idCompra;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Nombre nombre;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Tipo tipo;
 
     private float precio;
-
-    
 }
+

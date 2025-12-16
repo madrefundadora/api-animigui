@@ -1,48 +1,42 @@
 package com.proyectoapianimigui.api_animigui.model;
 
-import java.sql.Date;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="cita")
+@Table(name = "cita")
 public class Cita {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="id_cita")
-    private Long id_cita;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_cita")
+    private Long idCita;
 
-    private Date fecha_cita;
-    private Date hora; //mirar bien si date es la mejor opcion
+    @Column(name = "fecha", nullable = false)
+    private LocalDate fecha;
+
+    @Column(name = "hora", nullable = false)
+    private LocalTime hora;
 
     public enum Estado {
-    PENDIENTE, 
-    CONFIRMADA,
-    CANCELADA
+        PENDIENTE,
+        CONFIRMADA,
+        CANCELADA
     }
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "estado", nullable = false)
     private Estado estado;
 
-    //ahora con las foraneas las dos son manytoone, porque solo un cliente x cita y solo una mascota 
     @ManyToOne
-    @JoinColumn(name = "id_duenio")
-    private Duenio id_duenio;
+    @JoinColumn(name = "id_mascota", nullable = false)
+    private Mascota mascota;
 
     @ManyToOne
-    @JoinColumn(name = "id_veterinario")
-    private Veterinario id_veterinario;
+    @JoinColumn(name = "id_veterinario", nullable = false)
+    private Veterinario veterinario;
 
-
-    
+    // Getters y setters (o usa Lombok @Data si lo tienes)
 }
+
